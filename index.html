@@ -2,73 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Courses | Student Dashboard</title>
+    <title>Dashboard | Student Learning</title>
     <style>
-        body { font-family: sans-serif; margin: 0; background: #f8f9fa; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #f0f2f5; }
+        #school-site { display: block; }
+        #hidden-site { display: none; background: #000; color: #fff; height: 100vh; width: 100vw; position: fixed; top:0; left:0; z-index: 999; }
         
-        /* The School Look */
-        #school-view { display: block; }
-        .nav { background: #002e5d; color: white; padding: 15px; font-weight: bold; }
-        .main { max-width: 800px; margin: 40px auto; background: white; padding: 30px; border: 1px solid #ddd; border-radius: 8px; }
-        .footer { text-align: center; margin-top: 50px; color: #bbb; font-size: 11px; }
-
-        /* The Hidden Look */
-        #hidden-view { 
-            display: none; 
-            background: #111; 
-            color: #0f0; 
-            height: 100vh; 
-            width: 100vw; 
-            position: fixed; 
-            top: 0; left: 0; 
-            text-align: center;
-            padding-top: 50px;
-        }
-
-        /* Making the trigger look like plain text */
-        .secret-btn { cursor: pointer; user-select: none; }
+        .header { background: #002e5d; color: white; padding: 10px 20px; font-weight: 600; }
+        .card { background: white; margin: 20px auto; max-width: 600px; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
+        .footer { text-align: center; color: #999; font-size: 12px; margin-top: 40px; }
+        
+        /* The trigger looks like normal text */
+        #version-trigger { cursor: pointer; user-select: none; }
     </style>
 </head>
 <body>
 
-    <div id="school-view">
-        <div class="nav">Learning Management System</div>
-        <div class="main">
-            <h2>Current Courses</h2>
+    <div id="school-site">
+        <div class="header">Unified Classroom Portal</div>
+        <div class="card">
+            <h3>Recent Assignments</h3>
+            <p>• History: The Cold War (Due Today)</p>
+            <p>• Math: Polynomials Quiz (Completed)</p>
+        </div>
+        <div class="footer">
+            Server: US-East-1 | <span id="version-trigger">v1.0.4.1</span>
+        </div>
+    </div>
+
+    <div id="hidden-site">
+        <div style="padding: 40px; text-align: center;">
+            <h1>Strongdog Stealth</h1>
+            <p>Press 'P' to return to school site instantly.</p>
             <hr>
-            <p><strong>English 10</strong> - Assignment due Friday</p>
-            <p><strong>Algebra II</strong> - No upcoming tasks</p>
-            <p><strong>Biology</strong> - Quiz 3 complete</p>
-            
-            <div class="footer">
-                System Status: Operational <br>
-                <span class="secret-btn" id="trigger">Version 1.0.4.1</span>
+            <div style="margin-top: 20px;">
+                <p>Proxy/Games Content Loaded...</p>
             </div>
         </div>
     </div>
 
-    <div id="hidden-view">
-        <h1>STEALTH MODE ACTIVE</h1>
-        <p>Accessing Proxy Services...</p>
-        <button onclick="location.reload()" style="padding:10px; cursor:pointer;">Close Stealth</button>
-        <br><br>
-        <div style="border: 2px dashed #333; padding: 50px; margin: 20px;">
-             Content Area (Games/Proxy)
-        </div>
-    </div>
-
     <script>
-        // This is the logic that makes the swap happen
-        const trigger = document.getElementById('trigger');
-        const school = document.getElementById('school-view');
-        const hidden = document.getElementById('hidden-view');
+        const trigger = document.getElementById('version-trigger');
+        const school = document.getElementById('school-site');
+        const hidden = document.getElementById('hidden-site');
 
-        trigger.addEventListener('click', function() {
+        // Click version number to open
+        trigger.onclick = function() {
             school.style.display = 'none';
             hidden.style.display = 'block';
-            document.body.style.background = '#111';
-        });
-    </script>
+        };
 
+        // Press 'P' to panic and hide
+        window.onkeydown = function(e) {
+            if (e.key.toLowerCase() === 'p') {
+                school.style.display = 'block';
+                hidden.style.display = 'none';
+            }
+        };
+    </script>
 </body>
 </html>
