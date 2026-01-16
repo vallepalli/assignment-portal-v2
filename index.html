@@ -2,61 +2,87 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard | Student Learning</title>
+    <title>Student Portal | Login</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #f0f2f5; }
-        #school-site { display: block; }
-        #hidden-site { display: none; background: #000; color: #fff; height: 100vh; width: 100vw; position: fixed; top:0; left:0; z-index: 999; }
+        :root { --blue: #002e5d; --gray: #f4f4f4; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--gray); }
         
-        .header { background: #002e5d; color: white; padding: 10px 20px; font-weight: 600; }
-        .card { background: white; margin: 20px auto; max-width: 600px; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
-        .footer { text-align: center; color: #999; font-size: 12px; margin-top: 40px; }
+        /* Login Screen */
+        #login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        .login-box { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 300px; text-align: center; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button.login-btn { width: 100%; padding: 10px; background: var(--blue); color: white; border: none; border-radius: 4px; cursor: pointer; }
+
+        /* Dashboard */
+        #dashboard { display: none; }
+        .nav { background: var(--blue); color: white; padding: 15px; display: flex; justify-content: space-between; }
+        .content { max-width: 900px; margin: 20px auto; background: white; padding: 20px; border: 1px solid #ddd; }
         
-        /* The trigger looks like normal text */
-        #version-trigger { cursor: pointer; user-select: none; }
+        /* Secret Screen */
+        #secret-area { display: none; background: #000; color: #0f0; height: 100vh; width: 100vw; position: fixed; top: 0; left: 0; z-index: 1000; }
+        
+        .footer { text-align: center; color: #bbb; font-size: 11px; margin-top: 50px; }
+        #trigger { cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div id="school-site">
-        <div class="header">Unified Classroom Portal</div>
-        <div class="card">
-            <h3>Recent Assignments</h3>
-            <p>• History: The Cold War (Due Today)</p>
-            <p>• Math: Polynomials Quiz (Completed)</p>
-        </div>
-        <div class="footer">
-            Server: US-East-1 | <span id="version-trigger">v1.0.4.1</span>
+    <div id="login-screen">
+        <div class="login-box">
+            <h2 style="color: var(--blue);">District Login</h2>
+            <input type="text" placeholder="Student ID">
+            <input type="password" placeholder="Password">
+            <button class="login-btn" onclick="showDashboard()">Login</button>
         </div>
     </div>
 
-    <div id="hidden-site">
-        <div style="padding: 40px; text-align: center;">
-            <h1>Strongdog Stealth</h1>
-            <p>Press 'P' to return to school site instantly.</p>
+    <div id="dashboard">
+        <div class="nav">
+            <span>Student Dashboard</span>
+            <span>Settings | Log Out</span>
+        </div>
+        <div class="content">
+            <h3>Welcome back, Student</h3>
+            <p><strong>Announcements:</strong> Please remember to submit your Winter Break journals by Friday.</p>
             <hr>
-            <div style="margin-top: 20px;">
-                <p>Proxy/Games Content Loaded...</p>
+            <h4>Your Courses</h4>
+            <div style="padding: 10px; background: #f9f9f9; border-left: 4px solid var(--blue);">
+                Algebra II - Period 4 <br>
+                English Literature - Period 1
+            </div>
+            
+            <div class="footer">
+                Build: 2026.01.16 | <span id="trigger">v1.0.4.1</span>
             </div>
         </div>
     </div>
 
-    <script>
-        const trigger = document.getElementById('version-trigger');
-        const school = document.getElementById('school-site');
-        const hidden = document.getElementById('hidden-site');
+    <div id="secret-area">
+        <div style="padding: 20px;">
+            <h2>STEALTH INTERFACE</h2>
+            <p>Press 'P' to return to Dashboard.</p>
+            <hr>
+            <iframe src="https://www.bing.com" style="width:100%; height:80vh; border:none; background:white;"></iframe>
+        </div>
+    </div>
 
-        // Click version number to open
-        trigger.onclick = function() {
-            school.style.display = 'none';
-            hidden.style.display = 'block';
+    <script>
+        function showDashboard() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        }
+
+        // The Secret Trigger (Clicking v1.0.4.1)
+        document.getElementById('trigger').onclick = function() {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('secret-area').style.display = 'block';
         };
 
-        // Press 'P' to panic and hide
+        // Panic Button (Press P)
         window.onkeydown = function(e) {
             if (e.key.toLowerCase() === 'p') {
-                school.style.display = 'block';
-                hidden.style.display = 'none';
+                document.getElementById('secret-area').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
             }
         };
     </script>
